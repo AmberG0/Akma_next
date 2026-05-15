@@ -997,6 +997,27 @@ body.dark-theme .contact-info h3 {
 }
 
 /* =============================================
+   ИЗ services.php (Управление услугами - admin)
+   ============================================= */
+.services-table { width: 100%; border-collapse: collapse; }
+.services-table th, .services-table td { padding: 12px; text-align: left; border-bottom: 1px solid #EEEEEE; }
+.filter-bar { margin-bottom: 20px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap; }
+.filter-bar input, .filter-bar select { padding: 8px 12px; border: 1px solid #DDD; border-radius: 4px; }
+.relevance-badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+.relevance-yes { background-color: #d4edda; color: #155724; }
+.relevance-no { background-color: #f8d7da; color: #721c24; }
+
+/* Инлайн-стили, вынесенные в классы */
+.user-info-span { background:#FFD700; color:#1A1A1A; padding:5px 12px; border-radius:20px; font-size:12px; font-weight:bold; }
+.photo-placeholder { width:50px; height:50px; background:#eee; border-radius:4px; display:flex; align-items:center; justify-content:center; color:#999; font-size:10px; }
+.photo-thumbnail { width:50px; height:50px; object-fit:cover; border-radius:4px; }
+.modal-preview-img { max-width: 200px; max-height: 200px; border-radius: 4px; }
+.form-help-text { color: #666; display: block; margin-top: 5px; }
+.photo-preview-container { margin-top: 10px; }
+.content-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.content-title-no-margin { margin-bottom: 0; }
+
+/* =============================================
    ИЗ service_detail.php (user)
    ============================================= */
 .service-detail-section {

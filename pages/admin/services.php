@@ -203,43 +203,7 @@ $page_title = "Управление услугами";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $page_title ?> - СтройСервис</title>
     <link rel="stylesheet" href="../../i/Styles/main.css">
-    <style>
-        /* Стили остались без изменений, они корректны */
-        body { background-color: #F5F5F5; font-family: sans-serif; }
-        .admin-layout { display: grid; grid-template-columns: 250px 1fr; min-height: 100vh; }
-        .admin-sidebar { background-color: #1A1A1A; color: #FFFFFF; padding: 20px; }
-        .admin-logo { font-size: 20px; font-weight: bold; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #333; }
-        .admin-logo span { color: #FFD700; }
-        .admin-nav { list-style: none; padding: 0; }
-        .admin-nav li { margin-bottom: 10px; }
-        .admin-nav a { display: block; padding: 12px 15px; color: #CCCCCC; text-decoration: none; border-radius: 4px; transition: all 0.3s; }
-        .admin-nav a:hover, .admin-nav a.active { background-color: #FFD700; color: #1A1A1A; }
-        .admin-nav a.logout { margin-top: 30px; background-color: #c62828; color: white; text-align: center; }
-        .admin-content { padding: 30px; }
-        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 2px solid #FFD700; }
-        .content-section { background-color: #FFFFFF; padding: 25px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        .services-table { width: 100%; border-collapse: collapse; }
-        .services-table th, .services-table td { padding: 12px; text-align: left; border-bottom: 1px solid #EEEEEE; }
-        .btn-small { padding: 6px 12px; font-size: 12px; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-block; border: none; }
-        .btn-primary { background-color: #FFD700; color: #1A1A1A; }
-        .btn-danger { background-color: #c62828; color: white; }
-        .btn-success { background-color: #28a745; color: white; }
-        .filter-bar { margin-bottom: 20px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap; }
-        .filter-bar input, .filter-bar select { padding: 8px 12px; border: 1px solid #DDD; border-radius: 4px; }
-        .message { padding: 12px; border-radius: 4px; margin-bottom: 20px; }
-        .message.success { background-color: #d4edda; color: #155724; border-left: 3px solid #28a745; }
-        .message.error { background-color: #f8d7da; color: #721c24; border-left: 3px solid #dc3545; }
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); }
-        .modal-content { background-color: #FFFFFF; margin: 5% auto; padding: 30px; border-radius: 8px; width: 90%; max-width: 600px; max-height: 90vh; overflow-y: auto; }
-        .close-modal { float: right; font-size: 28px; font-weight: bold; cursor: pointer; color: #999; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #DDD; border-radius: 4px; box-sizing: border-box; }
-        .btn-submit { background-color: #FFD700; color: #1A1A1A; padding: 12px 24px; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; font-weight: bold; }
-        .relevance-badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
-        .relevance-yes { background-color: #d4edda; color: #155724; }
-        .relevance-no { background-color: #f8d7da; color: #721c24; }
-    </style>
+    <link rel="stylesheet" href="../../i/Styles/admin.css">
 </head>
 <body>
     <div class="admin-layout">
@@ -270,7 +234,7 @@ $page_title = "Управление услугами";
                 <h1>Управление услугами</h1>
                 <div class="user-info">
                     <span><?= htmlspecialchars($user_fio) ?></span>
-                    <span style="background:#FFD700;color:#1A1A1A;padding:5px 12px;border-radius:20px;font-size:12px;font-weight:bold;">
+                    <span class="user-info-span">
                         <?= $role === 'admin' ? 'Администратор' : 'Менеджер' ?>
                     </span>
                 </div>
@@ -281,8 +245,8 @@ $page_title = "Управление услугами";
             <?php endif; ?>
             
             <div class="content-section">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h2 style="margin-bottom: 0;">Все услуги (<?= count($services) ?>)</h2>
+                <div class="content-header-flex">
+                    <h2 class="content-title-no-margin">Все услуги (<?= count($services) ?>)</h2>
                     <?php if ($role === 'admin'): ?>
                         <button class="btn-small btn-success" onclick="openAddModal()">+ Добавить услугу</button>
                     <?php endif; ?>
@@ -321,9 +285,9 @@ $page_title = "Управление услугами";
                                     <td>
                                         <?php if (!empty($service['Photo'])): ?>
                                             <!-- Путь к фото: ../../uploads/имя_файла -->
-                                            <img src="../../uploads/<?= htmlspecialchars($service['Photo']) ?>" alt="Фото" style="width:50px;height:50px;object-fit:cover;border-radius:4px;">
+                                            <img src="../../uploads/<?= htmlspecialchars($service['Photo']) ?>" alt="Фото" class="photo-thumbnail">
                                         <?php else: ?>
-                                            <div style="width:50px;height:50px;background:#eee;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#999;font-size:10px;">Нет фото</div>
+                                            <div class="photo-placeholder">Нет фото</div>
                                         <?php endif; ?>
                                     </td>
                                     <td><?= htmlspecialchars($service['Name']) ?></td>
@@ -402,8 +366,8 @@ $page_title = "Управление услугами";
                 <div class="form-group">
                     <label for="photo">Фото услуги</label>
                     <input type="file" id="photo" name="photo" accept="image/jpeg,image/png,image/gif,image/webp">
-                    <small style="color: #666; display: block; margin-top: 5px;">Разрешенные форматы: JPEG, PNG, GIF, WebP. Макс. размер: 5MB</small>
-                    <div id="photoPreview" style="margin-top: 10px;"></div>
+                    <small class="form-help-text">Разрешенные форматы: JPEG, PNG, GIF, WebP. Макс. размер: 5MB</small>
+                    <div id="photoPreview" class="photo-preview-container"></div>
                 </div>
                 
                 <button type="submit" class="btn-submit">Сохранить</button>
@@ -462,7 +426,7 @@ $page_title = "Управление услугами";
             const previewDiv = document.getElementById('photoPreview');
             if (service.Photo && service.Photo !== '') {
                 // Путь к превью: ../../uploads/имя_файла
-                previewDiv.innerHTML = '<div style="margin-top: 10px;"><img src="../../uploads/' + service.Photo + '" alt="Текущее фото" style="max-width: 200px; max-height: 200px; border-radius: 4px;"></div><small>Загрузите новое фото, чтобы заменить текущее</small>';
+                previewDiv.innerHTML = '<div class="photo-preview-container"><img src="../../uploads/' + service.Photo + '" alt="Текущее фото" class="modal-preview-img"></div><small>Загрузите новое фото, чтобы заменить текущее</small>';
             } else {
                 previewDiv.innerHTML = '';
             }
